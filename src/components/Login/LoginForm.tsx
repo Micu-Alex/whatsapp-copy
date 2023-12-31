@@ -11,7 +11,6 @@ import {
 import { loginUser } from "../../services/LoginService";
 
 const LoginForm = () => {
-  //reform this
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
