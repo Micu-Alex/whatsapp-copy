@@ -11,6 +11,10 @@ const SocketClient = () => {
   const [usersData, setUsersData] = useState<User[]>([]);
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
     const socket = io("http://localhost:3000", {
       auth: {
         serverOffset: 0,
