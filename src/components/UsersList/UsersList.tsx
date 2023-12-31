@@ -6,8 +6,6 @@ interface Props {
 }
 
 const UsersList = ({ users }: Props) => {
-  console.log(users);
-
   return (
     <Container>
       <Title>User List</Title>
