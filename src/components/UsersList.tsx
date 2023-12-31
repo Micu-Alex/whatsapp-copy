@@ -1,8 +1,5 @@
-//temp
-interface User {
-  userID: string;
-  name: string;
-}
+import User from "../entities/Users";
+
 interface Props {
   users: User[];
 }

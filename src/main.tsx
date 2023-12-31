@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-//refrm this
+//reform this
 const router = createBrowserRouter([
   {
     path: "/",

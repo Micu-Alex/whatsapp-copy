@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
-
-//temp
-interface User {
-  userID: string;
-  name: string;
-}
+import User from "../entities/Users";
 
 interface Props {
   setUsersData: (users: User[]) => void;

@@ -1,12 +1,7 @@
 import { useState } from "react";
 import SocketClient from "./services/SocketService";
 import UsersList from "./components/UsersList";
-
-//temp
-interface User {
-  userID: string;
-  name: string;
-}
+import User from "./entities/Users";
 
 function App() {
   const [usersData, setUsersData] = useState<User[]>([]);
