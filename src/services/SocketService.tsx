@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { io } from "socket.io-client";
 
 //temp
@@ -7,8 +7,11 @@ interface User {
   name: string;
 }
 
-const SocketClient = () => {
-  const [usersData, setUsersData] = useState<User[]>([]);
+interface Props {
+  setUsersData: (users: User[]) => void;
+}
+
+const SocketClient = ({ setUsersData }: Props) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -45,16 +48,7 @@ const SocketClient = () => {
     };
   }, []);
 
-  return (
-    <div>
-      <h1>Socket.IO Client</h1>
-      <ul>
-        {usersData.map((user) => (
-          <li key={user.userID}>Name: {user.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  return null;
 };
 
 export default SocketClient;
