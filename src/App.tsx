@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SocketClient from "./services/SocketService";
-import UsersList from "./components/UsersList";
+import UsersList from "./components/UsersList/UsersList";
 import User from "./entities/Users";
 
 function App() {
