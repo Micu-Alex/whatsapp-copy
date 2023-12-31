@@ -29,13 +29,16 @@ const SocketClient = () => {
         if (a.self !== b.self) {
           return a.self ? -1 : 1;
         }
-        // Add additional sorting logic if needed
-        return 0; // Default return value if no sorting needed
+        return 0;
       });
 
       // Update the component state with the modified users data
       setUsersData(updatedUsers);
     });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
