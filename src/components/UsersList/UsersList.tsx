@@ -22,7 +22,7 @@ const UsersList = ({ users, setSelectedUserID }: Props) => {
           <UserItem
             key={user.userID}
             onClick={() => handleUserClick(user.userID)}
-            isSelected={selectedUser === user.userID}
+            $isSelected={selectedUser === user.userID}
           >
             {user.self ? "You" : "Name"}: {user.name}
           </UserItem>

@@ -20,7 +20,7 @@ export const ListContainer = styled.ul`
 `;
 
 interface UserItemProps {
-  isSelected: boolean;
+  $isSelected: boolean;
 }
 
 export const UserItem = styled.li<UserItemProps>`
@@ -31,7 +31,7 @@ export const UserItem = styled.li<UserItemProps>`
   font-size: 14px;
 
   ${(props) =>
-    props.isSelected &&
+    props.$isSelected &&
     css`
       background-color: #dff0d8;
     `}
