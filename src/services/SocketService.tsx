@@ -4,9 +4,10 @@ import User from "../entities/Users";
 
 interface Props {
   setUsersData: (users: User[]) => void;
+  selectedUserID: string | undefined;
 }
 
-const SocketClient = ({ setUsersData }: Props) => {
+const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
   useEffect(() => {
     //auth token setup
     const token = localStorage.getItem("token");
