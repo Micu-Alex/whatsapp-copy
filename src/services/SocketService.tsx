@@ -9,6 +9,7 @@ interface Props {
 
 const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
   const socketRef = useRef<any>(null);
+  //deals with initial setup of socket
   useEffect(() => {
     //auth token setup
     const token = localStorage.getItem("token");
@@ -26,32 +27,42 @@ const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
     });
     socketRef.current = socket;
 
-    // listens for the users to be send from the server
-    socket.on("users", (users: User[], senderID) => {
-      const updatedUsers = users.map((user) => ({
-        ...user,
-        self: user.userID === senderID,
-      }));
-
-      // sort the users list based on certain criteria
-      updatedUsers.sort((a, b) => {
-        if (a.self !== b.self) {
-          return a.self ? -1 : 1;
-        }
-        return 0;
-      });
-
-      // update the component state with the modified users data
-      setUsersData(updatedUsers);
-    });
-
-    // clean up
     return () => {
       socket.disconnect();
     };
   }, []);
+
+  //deals with the "users" event
   useEffect(() => {
-    // Emit 'selectedUser' event when selectedUserID changes
+    if (socketRef.current) {
+      // Listen for 'users' event from the server
+      socketRef.current.on("users", (users: User[], senderID: any) => {
+        const updatedUsers = users.map((user) => ({
+          ...user,
+          self: user.userID === senderID,
+        }));
+
+        updatedUsers.sort((a, b) => {
+          if (a.self !== b.self) {
+            return a.self ? -1 : 1;
+          }
+          return 0;
+        });
+
+        setUsersData(updatedUsers);
+      });
+    }
+
+    return () => {
+      // Clean up the 'users' event listener
+      if (socketRef.current) {
+        socketRef.current.off("users");
+      }
+    };
+  }, [setUsersData]);
+
+  // deals with selected user event
+  useEffect(() => {
     if (selectedUserID) {
       socketRef.current.emit("selectedUser", selectedUserID);
     }
