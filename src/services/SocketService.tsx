@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import User from "../entities/Users";
 
@@ -8,6 +8,7 @@ interface Props {
 }
 
 const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
+  const socketRef = useRef<any>(null);
   useEffect(() => {
     //auth token setup
     const token = localStorage.getItem("token");
@@ -23,6 +24,7 @@ const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
       },
       transports: ["websocket"],
     });
+    socketRef.current = socket;
 
     // listens for the users to be send from the server
     socket.on("users", (users: User[], senderID) => {
@@ -48,6 +50,12 @@ const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
       socket.disconnect();
     };
   }, []);
+  useEffect(() => {
+    // Emit 'selectedUser' event when selectedUserID changes
+    if (selectedUserID) {
+      socketRef.current.emit("selectedUser", selectedUserID);
+    }
+  }, [selectedUserID]);
 
   return null;
 };
