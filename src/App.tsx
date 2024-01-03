@@ -9,6 +9,9 @@ function App() {
   const [usersData, setUsersData] = useState<User[]>([]);
   const [selectedUserID, setSelectedUserID] = useState<string>();
   const [messages, setMessages] = useState<Message[]>([]);
+  const [newMeassage, setNewMessage] = useState<string>();
+
+  console.log(newMeassage);
 
   const getCurrentUser = () => {
     const currentUser = usersData.find((user) => user.self);
@@ -21,9 +24,14 @@ function App() {
         setUsersData={setUsersData}
         selectedUserID={selectedUserID}
         setMessages={setMessages}
+        newMessage={newMeassage}
       />
       <UsersList users={usersData} setSelectedUserID={setSelectedUserID} />
-      <Chat messages={messages} currentUser={getCurrentUser()} />
+      <Chat
+        messages={messages}
+        currentUser={getCurrentUser()}
+        setNewMessage={setNewMessage}
+      />
     </>
   );
 }

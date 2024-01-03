@@ -7,9 +7,15 @@ interface Props {
   setUsersData: (users: User[]) => void;
   selectedUserID: string | undefined;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  newMessage: string | undefined;
 }
 
-const SocketClient = ({ setUsersData, selectedUserID, setMessages }: Props) => {
+const SocketClient = ({
+  setUsersData,
+  selectedUserID,
+  setMessages,
+  newMessage,
+}: Props) => {
   const socketRef = useRef<any>(null);
   //deals with initial setup of socket
   useEffect(() => {
@@ -70,6 +76,7 @@ const SocketClient = ({ setUsersData, selectedUserID, setMessages }: Props) => {
     }
   }, [selectedUserID, setMessages]);
 
+  //deals with old messages
   useEffect(() => {
     socketRef.current.on("chat message", (data: any) => {
       const { sender, message } = data;
@@ -80,6 +87,16 @@ const SocketClient = ({ setUsersData, selectedUserID, setMessages }: Props) => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
   }, [setMessages]);
+
+  //deals with new messages
+  useEffect(() => {
+    if (newMessage && newMessage.trim() !== "") {
+      socketRef.current.emit("chat message", {
+        msg: newMessage,
+        toUserID: selectedUserID,
+      });
+    }
+  }, [newMessage, selectedUserID]);
 
   return null;
 };

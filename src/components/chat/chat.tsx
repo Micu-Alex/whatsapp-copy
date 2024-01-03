@@ -1,4 +1,6 @@
-import Messages from "../../entities/Messages";
+import { useRef, useEffect } from "react";
+import Message from "../../entities/Messages";
+import Input from "../Input/Input";
 import {
   ChatContainer,
   MessageWrapper,
@@ -7,14 +9,24 @@ import {
   OtherUserMessage,
   SenderNameRight,
   MessageTextRight,
+  InputWrapper,
 } from "./Chat.styles";
 
 interface Props {
-  messages: Messages[];
+  messages: Message[];
   currentUser: string | undefined;
+  setNewMessage: (message: string) => void;
 }
 //NEEDS REFACTOR
-const Chat = ({ messages, currentUser }: Props) => {
+const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   return (
     <ChatContainer>
       <ChatTitle>Messages:</ChatTitle>
@@ -38,6 +50,10 @@ const Chat = ({ messages, currentUser }: Props) => {
           </div>
         </MessageWrapper>
       ))}
+      <div ref={endOfMessagesRef}></div>
+      <InputWrapper>
+        <Input setNewMessage={setNewMessage} />
+      </InputWrapper>
     </ChatContainer>
   );
 };

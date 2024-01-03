@@ -7,6 +7,9 @@ export const ChatContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  height: 600px; /* Adjust the height as needed */
+  overflow: auto; /* Adding scroll when content overflows */
+  osition: relative; /* Ensure positioning context for absolutely positioned Input */
 `;
 
 export const ChatTitle = styled.h2`
@@ -17,6 +20,13 @@ export const ChatTitle = styled.h2`
 interface MessageWrapperProps {
   $bgColor?: string;
 }
+
+export const InputWrapper = styled.div`
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  padding: 10px;
+`;
 
 export const MessageWrapper = styled.div<MessageWrapperProps>`
   display: flex;
