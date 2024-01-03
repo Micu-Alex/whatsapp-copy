@@ -37,6 +37,7 @@ export const MessageWrapper = styled.div<MessageWrapperProps>`
 `;
 
 export const SenderName = styled.p`
+  padding: 0 5px;
   font-weight: bold;
   margin: 0 0;
 `;
@@ -46,6 +47,7 @@ export const SenderNameRight = styled(SenderName)`
 `;
 
 export const MessageText = styled.p`
+  padding: 0 5px;
   margin-bottom: 0px;
   margin-top: 3px;
   max-width: 100%;
