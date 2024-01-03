@@ -1,13 +1,15 @@
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import User from "../entities/Users";
+import Message from "../entities/Messages";
 
 interface Props {
   setUsersData: (users: User[]) => void;
   selectedUserID: string | undefined;
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 }
 
-const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
+const SocketClient = ({ setUsersData, selectedUserID, setMessages }: Props) => {
   const socketRef = useRef<any>(null);
   //deals with initial setup of socket
   useEffect(() => {
@@ -20,7 +22,6 @@ const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
     //io set up
     const socket = io("http://localhost:3000", {
       auth: {
-        serverOffset: 0,
         token: token,
       },
       transports: ["websocket"],
@@ -64,9 +65,21 @@ const SocketClient = ({ setUsersData, selectedUserID }: Props) => {
   // deals with selected user event
   useEffect(() => {
     if (selectedUserID) {
+      setMessages([]);
       socketRef.current.emit("selectedUser", selectedUserID);
     }
-  }, [selectedUserID]);
+  }, [selectedUserID, setMessages]);
+
+  useEffect(() => {
+    socketRef.current.on("chat message", (data: any) => {
+      const { sender, message } = data;
+      const newMessage: Message = {
+        sender: sender.username,
+        message: message,
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+  }, [setMessages]);
 
   return null;
 };
