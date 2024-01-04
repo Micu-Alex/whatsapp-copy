@@ -4,6 +4,7 @@ import UsersList from "./components/UsersList/UsersList";
 import Chat from "./components/Chat/Chat";
 import User from "./entities/Users";
 import Message from "./entities/Messages";
+import { getCurrentUser } from "./utils/userUtils";
 
 function App() {
   const [usersData, setUsersData] = useState<User[]>([]);
@@ -11,12 +12,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMeassage, setNewMessage] = useState<string>();
 
-  console.log(newMeassage);
-
-  const getCurrentUser = () => {
-    const currentUser = usersData.find((user) => user.self);
-    return currentUser?.name;
-  };
+  const currentUserName = getCurrentUser(usersData);
 
   return (
     <>
@@ -29,7 +25,7 @@ function App() {
       <UsersList users={usersData} setSelectedUserID={setSelectedUserID} />
       <Chat
         messages={messages}
-        currentUser={getCurrentUser()}
+        currentUser={currentUserName}
         setNewMessage={setNewMessage}
       />
     </>
