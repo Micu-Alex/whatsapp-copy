@@ -4,20 +4,20 @@ import Input from "../Input/Input";
 import {
   ChatContainer,
   MessageWrapper,
-  SenderName,
   ChatTitle,
-  OtherUserMessage,
-  SenderNameRight,
-  MessageTextRight,
   InputWrapper,
+  MessageContainer,
+  MessageBubble,
+  MessageText,
 } from "./Chat.styles";
+import { getOtherUserFromConversation } from "../../utils/userUtils";
 
 interface Props {
   messages: Message[];
   currentUser: string | undefined;
   setNewMessage: (message: string) => void;
 }
-//NEEDS REFACTOR
+
 const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
@@ -27,27 +27,21 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
     }
   }, [messages]);
 
+  const otherUser = getOtherUserFromConversation(messages, currentUser!);
+
   return (
     <ChatContainer>
-      <ChatTitle>Messages:</ChatTitle>
+      <ChatTitle>{otherUser}</ChatTitle>
       {messages.map((msg, index) => (
-        <MessageWrapper
-          $bgColor={msg.sender !== currentUser ? "#e5e5ea" : "#dcf8c6"}
-        >
-          <div key={index}>
-            {msg.sender !== currentUser && (
-              <SenderName>{msg.sender}</SenderName>
-            )}
-            {msg.sender === currentUser && (
-              <SenderNameRight>{msg.sender}</SenderNameRight>
-            )}
-
-            {msg.sender === currentUser ? (
-              <MessageTextRight>{msg.message}</MessageTextRight>
-            ) : (
-              <OtherUserMessage>{msg.message}</OtherUserMessage>
-            )}
-          </div>
+        <MessageWrapper>
+          <MessageContainer $isCurrentUser={msg.sender === currentUser}>
+            <MessageBubble
+              $bgColor={msg.sender !== currentUser ? "#e5e5ea" : "#dcf8c6"}
+              $isCurrentUser={msg.sender === currentUser}
+            >
+              <MessageText>{msg.message}</MessageText>
+            </MessageBubble>
+          </MessageContainer>
         </MessageWrapper>
       ))}
       <div ref={endOfMessagesRef}></div>
