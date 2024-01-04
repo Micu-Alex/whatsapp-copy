@@ -33,7 +33,7 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
     <ChatContainer>
       <ChatTitle>{otherUser}</ChatTitle>
       {messages.map((msg, index) => (
-        <MessageWrapper>
+        <MessageWrapper key={index}>
           <MessageContainer $isCurrentUser={msg.sender === currentUser}>
             <MessageBubble
               $bgColor={msg.sender !== currentUser ? "#e5e5ea" : "#dcf8c6"}
