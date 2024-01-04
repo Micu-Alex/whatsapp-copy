@@ -1,12 +1,10 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  max-width: 400px;
-  margin: 0 10px;
+  height: 100%;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
 `;
 
 export const Title = styled.h2`
@@ -24,11 +22,23 @@ interface UserItemProps {
 }
 
 export const UserItem = styled.li<UserItemProps>`
-  margin-bottom: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5; /* Hover color */
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
 
   ${(props) =>
     props.$isSelected &&

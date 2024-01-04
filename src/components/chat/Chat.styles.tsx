@@ -1,15 +1,8 @@
 import styled from "styled-components";
 
 export const ChatContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  height: 600px; /* Adjust the height as needed */
-  overflow: auto; /* Adding scroll when content overflows */
-  osition: relative; /* Ensure positioning context for absolutely positioned Input */
+  padding: 10px;
+  background-color: #f5f5f5;
 `;
 
 export const ChatTitle = styled.h2`
@@ -22,10 +15,13 @@ interface MessageWrapperProps {
 }
 
 export const InputWrapper = styled.div`
-  position: sticky;
-  bottom: 0;
+  display: flex;
+  justify-content: space-between; /* Adjust alignment as needed */
+  align-items: center; /* Align items vertically */
   background-color: #fff;
   padding: 10px;
+  position: sticky;
+  bottom: 0;
 `;
 
 export const MessageWrapper = styled.div<MessageWrapperProps>`
@@ -34,6 +30,10 @@ export const MessageWrapper = styled.div<MessageWrapperProps>`
   border-radius: 8px;
   background-color: ${(props) => props.$bgColor || "white"};
   margin-bottom: 10px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
 `;
 
 export const SenderName = styled.p`
