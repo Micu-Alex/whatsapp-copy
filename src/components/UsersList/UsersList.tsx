@@ -1,6 +1,7 @@
 import { useState } from "react";
 import User from "../../entities/Users";
 import { Container, Title, ListContainer, UserItem } from "./Users.styles";
+import { getCurrentUser } from "../../utils/userUtils";
 
 interface Props {
   users: User[];
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const UsersList = ({ users, setSelectedUserID }: Props) => {
+  const currentUserName = getCurrentUser(users);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const handleUserClick = (userID: string) => {
     setSelectedUserID(userID);
@@ -16,17 +18,19 @@ const UsersList = ({ users, setSelectedUserID }: Props) => {
 
   return (
     <Container>
-      <Title>User List</Title>
+      <Title>{currentUserName}</Title>
       <ListContainer>
-        {users.map((user) => (
-          <UserItem
-            key={user.userID}
-            onClick={() => handleUserClick(user.userID)}
-            $isSelected={selectedUser === user.userID}
-          >
-            {user.self ? "You" : "Name"}: {user.name}
-          </UserItem>
-        ))}
+        {users
+          .filter((user) => !user.self)
+          .map((user) => (
+            <UserItem
+              key={user.userID}
+              onClick={() => handleUserClick(user.userID)}
+              $isSelected={selectedUser === user.userID}
+            >
+              Name: {user.name}
+            </UserItem>
+          ))}
       </ListContainer>
     </Container>
   );
