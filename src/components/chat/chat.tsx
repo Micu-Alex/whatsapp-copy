@@ -30,24 +30,26 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
   const otherUser = getOtherUserFromConversation(messages, currentUser!);
 
   return (
-    <ChatContainer>
-      <ChatTitle>{otherUser}</ChatTitle>
-      {messages.map((msg, index) => (
-        <MessageWrapper key={index}>
-          <MessageContainer $isCurrentUser={msg.sender === currentUser}>
-            <MessageBubble
-              $bgColor={msg.sender !== currentUser ? "#e5e5ea" : "#dcf8c6"}
-              $isCurrentUser={msg.sender === currentUser}
-            >
-              <MessageText ref={endOfMessagesRef}>{msg.message}</MessageText>
-            </MessageBubble>
-          </MessageContainer>
-        </MessageWrapper>
-      ))}
+    <>
+      <ChatContainer>
+        <ChatTitle>{otherUser}</ChatTitle>
+        {messages.map((msg, index) => (
+          <MessageWrapper key={index}>
+            <MessageContainer $isCurrentUser={msg.sender === currentUser}>
+              <MessageBubble
+                $bgColor={msg.sender !== currentUser ? "#e5e5ea" : "#dcf8c6"}
+                $isCurrentUser={msg.sender === currentUser}
+              >
+                <MessageText ref={endOfMessagesRef}>{msg.message}</MessageText>
+              </MessageBubble>
+            </MessageContainer>
+          </MessageWrapper>
+        ))}
+      </ChatContainer>
       <InputWrapper>
         <Input setNewMessage={setNewMessage} />
       </InputWrapper>
-    </ChatContainer>
+    </>
   );
 };
 

@@ -4,18 +4,19 @@ export const ChatContainer = styled.div`
   padding: 10px;
   background-color: #f5f5f5;
   display: flex;
+  flex: 1;
   flex-direction: column;
 `;
 
 export const ChatTitle = styled.h2`
   text-align: left;
   color: #333;
-  margin: 0; /* Reset default margin */
-  padding: 10px 0; /* Adjust padding for space */
-  position: sticky; /* Make the title sticky */
-  top: 0; /* Stick it at the top */
-  background-color: #f5f5f5; /* Match the container's background color */
-  z-index: 1; /* Ensure it's above other content */
+  margin: 0;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5;
+  z-index: 1;
 `;
 
 export const SenderNameContainer = styled.div`
@@ -27,8 +28,7 @@ export const SenderNameContainer = styled.div`
 
 export const InputWrapper = styled.div`
   display: flex;
-  justify-content: space-between; /* Adjust alignment as needed */
-  align-items: center; /* Align items vertically */
+  align-items: center;
   background-color: #fff;
   padding: 10px;
   position: sticky;

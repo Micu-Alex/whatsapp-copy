@@ -17,6 +17,7 @@ export const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  min-height: 0;
 `;
 
 export const WelcomeStatement = styled.div`
