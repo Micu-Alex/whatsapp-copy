@@ -39,12 +39,11 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
               $bgColor={msg.sender !== currentUser ? "#e5e5ea" : "#dcf8c6"}
               $isCurrentUser={msg.sender === currentUser}
             >
-              <MessageText>{msg.message}</MessageText>
+              <MessageText ref={endOfMessagesRef}>{msg.message}</MessageText>
             </MessageBubble>
           </MessageContainer>
         </MessageWrapper>
       ))}
-      <div ref={endOfMessagesRef}></div>
       <InputWrapper>
         <Input setNewMessage={setNewMessage} />
       </InputWrapper>
