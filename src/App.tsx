@@ -26,6 +26,25 @@ const MainContent = styled.div`
   overflow-y: auto;
 `;
 
+const WelcomeStatement = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: 90px;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+`;
+
+const SubStatement = styled.div`
+  opacity: 0.7;
+  display: flex;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+`;
+
 function App() {
   const [usersData, setUsersData] = useState<User[]>([]);
   const [selectedUserID, setSelectedUserID] = useState<string>();
@@ -46,11 +65,18 @@ function App() {
         <UsersList users={usersData} setSelectedUserID={setSelectedUserID} />
       </Sidebar>
       <MainContent>
-        <Chat
-          messages={messages}
-          currentUser={currentUserName}
-          setNewMessage={setNewMessage}
-        />
+        {selectedUserID ? (
+          <Chat
+            messages={messages}
+            currentUser={currentUserName}
+            setNewMessage={setNewMessage}
+          />
+        ) : (
+          <WelcomeStatement>
+            Welcome to my app.
+            <SubStatement>please select a user from the list.</SubStatement>
+          </WelcomeStatement>
+        )}
       </MainContent>
     </AppContainer>
   );
