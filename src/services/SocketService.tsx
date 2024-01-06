@@ -43,7 +43,7 @@ const SocketClient = ({
   useEffect(() => {
     if (socketRef.current) {
       // Listen for 'users' event from the server
-      socketRef.current.on("users", (users: User[], senderID: any) => {
+      socketRef.current.on("AllUsers", (users: User[], senderID: any) => {
         const updatedUsers = users.map((user) => ({
           ...user,
           self: user.userID === senderID,
@@ -63,7 +63,7 @@ const SocketClient = ({
     return () => {
       // Clean up the 'users' event listener
       if (socketRef.current) {
-        socketRef.current.off("users");
+        socketRef.current.off("AllUsers");
       }
     };
   }, [setUsersData]);
