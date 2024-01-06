@@ -9,7 +9,6 @@ export const loginUser = async (email: string, password: string) => {
     });
     if (response.ok) {
       const token = await response.text();
-      // Save the token in local storage
       localStorage.setItem("token", token);
       window.location.href = "/";
     } else {

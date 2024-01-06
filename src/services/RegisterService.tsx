@@ -12,20 +12,15 @@ export const registerUser = async (
       body: JSON.stringify({ name, email, password }),
     });
     if (response.ok) {
-      const data = await response.json();
-      console.log("Registration successful:", data);
+      const token = await response.text();
+      localStorage.setItem("token", token);
       window.location.href = "/";
     } else {
-      const errorData = await response.json();
-      console.error("Registration failed:", errorData);
-      alert("Registration failed. Please try again.");
+      const errorData = await response.text();
+      alert(errorData);
     }
   } catch (error) {
-    console.error(
-      "Error occurred during registering:",
-      error,
-      JSON.stringify({ name, email, password })
-    );
+    console.error("Error occurred during registering:", error);
     alert("An error occurred during . Please try again.");
   }
 };
