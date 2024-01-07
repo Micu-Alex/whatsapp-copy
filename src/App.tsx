@@ -4,7 +4,7 @@ import UsersList from "./components/UsersList/UsersList";
 import Chat from "./components/Chat/Chat";
 import User from "./entities/Users";
 import Message from "./entities/Messages";
-import { getCurrentUser } from "./utils/userUtils";
+import { getCurrentUser, makeUsersOnline } from "./utils/userUtils";
 
 import {
   AppContainer,
@@ -23,16 +23,6 @@ function App() {
 
   const currentUserName = getCurrentUser(usersData);
 
-  const makeUsersOnline = (usersData: User[], onlineUsers: User[]) => {
-    usersData.forEach((userData) => {
-      const isOnline = onlineUsers.some(
-        (onlineUser) => userData.userID === onlineUser.userID
-      );
-      if (isOnline) {
-        userData.status = "online";
-      }
-    });
-  };
   makeUsersOnline(usersData, onlineUsers);
 
   return (

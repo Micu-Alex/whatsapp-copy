@@ -7,7 +7,21 @@ export const getCurrentUser = (usersData: User[] | undefined) => {
     return currentUser?.name;
   };
 
-  export const getOtherUserFromConversation = (messages: Message[], currentUser: string) => {
+export const getOtherUserFromConversation = (messages: Message[], currentUser: string) => {
     const otherUserMessage = messages.find((msg) => msg.sender !== currentUser);
     return otherUserMessage?.sender;
   };
+
+export const makeUsersOnline = (usersData: User[], onlineUsers: User[]) => {
+    return usersData.forEach((userData) => {
+      const isOnline = onlineUsers.some(
+        (onlineUser) => userData.userID === onlineUser.userID
+      );
+      if (isOnline) {
+        userData.status = "online";
+      }else {
+        userData.status = "offline";
+      }
+    });
+  };
+
