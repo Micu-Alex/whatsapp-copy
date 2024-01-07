@@ -38,7 +38,6 @@ export const InputWrapper = styled.div`
 export const MessageWrapper = styled.div<MessageContainerProps>`
   display: flex;
   flex-direction: column;
-  margin: 10px;
 `;
 
 interface MessageContainerProps {
