@@ -23,6 +23,7 @@ interface UserItemProps {
 
 export const UserItem = styled.li<UserItemProps>`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   padding: 10px;
@@ -45,4 +46,10 @@ export const UserItem = styled.li<UserItemProps>`
     css`
       background-color: #dff0d8;
     `}
+`;
+export const Dot = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color || "gray"};
 `;

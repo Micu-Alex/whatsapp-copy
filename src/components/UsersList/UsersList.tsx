@@ -1,19 +1,18 @@
 import { useState } from "react";
 import User from "../../entities/Users";
-import { Container, Title, ListContainer, UserItem } from "./Users.styles";
+import { Container, Title, ListContainer, UserItem, Dot } from "./Users.styles";
 import { getCurrentUser } from "../../utils/userUtils";
 
 interface Props {
   users: User[];
   setSelectedUserID: (userID: string) => void;
+  selectedUserID: string | undefined;
 }
 
-const UsersList = ({ users, setSelectedUserID }: Props) => {
+const UsersList = ({ users, setSelectedUserID, selectedUserID }: Props) => {
   const currentUserName = getCurrentUser(users);
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const handleUserClick = (userID: string) => {
     setSelectedUserID(userID);
-    setSelectedUser(userID);
   };
 
   return (
@@ -26,9 +25,10 @@ const UsersList = ({ users, setSelectedUserID }: Props) => {
             <UserItem
               key={user.userID}
               onClick={() => handleUserClick(user.userID)}
-              $isSelected={selectedUser === user.userID}
+              $isSelected={selectedUserID === user.userID}
             >
               Name: {user.name}
+              <Dot color={user.status === "online" ? "green" : "grey"} />
             </UserItem>
           ))}
       </ListContainer>

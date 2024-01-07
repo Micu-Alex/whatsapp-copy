@@ -16,11 +16,24 @@ import {
 
 function App() {
   const [usersData, setUsersData] = useState<User[]>([]);
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   const [selectedUserID, setSelectedUserID] = useState<string>();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMeassage, setNewMessage] = useState<string>();
 
   const currentUserName = getCurrentUser(usersData);
+
+  const makeUsersOnline = (usersData: User[], onlineUsers: User[]) => {
+    usersData.forEach((userData) => {
+      const isOnline = onlineUsers.some(
+        (onlineUser) => userData.userID === onlineUser.userID
+      );
+      if (isOnline) {
+        userData.status = "online";
+      }
+    });
+  };
+  makeUsersOnline(usersData, onlineUsers);
 
   return (
     <AppContainer>
@@ -29,9 +42,14 @@ function App() {
         selectedUserID={selectedUserID}
         setMessages={setMessages}
         newMessage={newMeassage}
+        setOnlineUsers={setOnlineUsers}
       />
       <Sidebar>
-        <UsersList users={usersData} setSelectedUserID={setSelectedUserID} />
+        <UsersList
+          users={usersData}
+          setSelectedUserID={setSelectedUserID}
+          selectedUserID={selectedUserID}
+        />
       </Sidebar>
       <MainContent>
         {selectedUserID ? (

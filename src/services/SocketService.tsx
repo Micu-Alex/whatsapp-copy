@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import User from "../entities/Users";
 import Message from "../entities/Messages";
 
 interface Props {
   setUsersData: (users: User[]) => void;
+  setOnlineUsers: (users: User[]) => void;
   selectedUserID: string | undefined;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   newMessage: string | undefined;
@@ -12,11 +13,13 @@ interface Props {
 
 const SocketClient = ({
   setUsersData,
+  setOnlineUsers,
   selectedUserID,
   setMessages,
   newMessage,
 }: Props) => {
   const socketRef = useRef<any>(null);
+
   //deals with initial setup of socket
   useEffect(() => {
     //auth token setup
@@ -39,6 +42,13 @@ const SocketClient = ({
     };
   }, []);
 
+  //deals wiht online users
+  useEffect(() => {
+    socketRef.current.on("userOnline", (onlineUsers: User[]) => {
+      setOnlineUsers(onlineUsers);
+    });
+  });
+
   //deals with the "users" event
   useEffect(() => {
     if (socketRef.current) {
@@ -47,6 +57,7 @@ const SocketClient = ({
         const updatedUsers = users.map((user) => ({
           ...user,
           self: user.userID === senderID,
+          status: "offline",
         }));
 
         updatedUsers.sort((a, b) => {
