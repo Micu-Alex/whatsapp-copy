@@ -23,7 +23,6 @@ interface UserItemProps {
 
 export const UserItem = styled.li<UserItemProps>`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   padding: 10px;
@@ -48,6 +47,7 @@ export const UserItem = styled.li<UserItemProps>`
     `}
 `;
 export const Dot = styled.div`
+  margin-right: 5px;
   width: 10px;
   height: 10px;
   border-radius: 50%;

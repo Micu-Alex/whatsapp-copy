@@ -27,8 +27,8 @@ const UsersList = ({ users, setSelectedUserID, selectedUserID }: Props) => {
               onClick={() => handleUserClick(user.userID)}
               $isSelected={selectedUserID === user.userID}
             >
-              Name: {user.name}
               <Dot color={user.status === "online" ? "green" : "grey"} />
+              Name: {user.name}
             </UserItem>
           ))}
       </ListContainer>
