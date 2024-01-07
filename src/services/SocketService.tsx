@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import User from "../entities/Users";
 import Message from "../entities/Messages";
@@ -107,7 +107,7 @@ const SocketClient = ({
         toUserID: selectedUserID,
       });
     }
-  }, [newMessage, selectedUserID]);
+  }, [newMessage]);
 
   return null;
 };
