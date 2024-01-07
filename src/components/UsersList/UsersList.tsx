@@ -1,4 +1,3 @@
-import { useState } from "react";
 import User from "../../entities/Users";
 import { Container, Title, ListContainer, UserItem, Dot } from "./Users.styles";
 import { getCurrentUser } from "../../utils/userUtils";
