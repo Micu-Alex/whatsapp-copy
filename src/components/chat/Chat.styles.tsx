@@ -71,3 +71,8 @@ export const MessageText = styled.p`
   margin-top: 3px;
   max-width: 100%;
 `;
+
+export const SeenIndicator = styled.div`
+  font-size: 0.8rem;
+  color: #888;
+`;

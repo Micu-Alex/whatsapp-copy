@@ -9,6 +9,7 @@ import {
   MessageContainer,
   MessageBubble,
   MessageText,
+  SeenIndicator,
 } from "./Chat.styles";
 import { getOtherUserFromConversation } from "../../utils/userUtils";
 
@@ -27,6 +28,7 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
     }
   }, [messages]);
 
+  //figure out a way to dispaly the other user name if there are no message, should not be that hard you dumass
   const otherUser = getOtherUserFromConversation(messages, currentUser!);
 
   return (
@@ -42,6 +44,13 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
               >
                 <MessageText ref={endOfMessagesRef}>{msg.message}</MessageText>
               </MessageBubble>
+              {/*temp*/}
+              {msg.isSeen ? (
+                <SeenIndicator>Seen</SeenIndicator>
+              ) : (
+                <SeenIndicator>Not Seen</SeenIndicator>
+              )}
+              {/*temp*/}
             </MessageContainer>
           </MessageWrapper>
         ))}

@@ -90,10 +90,11 @@ const SocketClient = ({
   //deals with old messages
   useEffect(() => {
     socketRef.current.on("chat message", (data: any) => {
-      const { sender, message } = data;
+      const { sender, message, isSeen } = data;
       const newMessage: Message = {
         sender: sender.username,
         message: message,
+        isSeen: isSeen,
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
