@@ -51,7 +51,7 @@ const Chat = ({
         ))}
       </ChatContainer>
       <InputWrapper>
-        <Input setNewMessage={setNewMessage} />
+        <Input setNewMessage={setNewMessage} selectedUser={selectedUser} />
       </InputWrapper>
     </>
   );
