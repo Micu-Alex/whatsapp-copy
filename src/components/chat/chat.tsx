@@ -10,15 +10,21 @@ import {
   MessageBubble,
   MessageText,
 } from "./Chat.styles";
-import { getOtherUserFromConversation } from "../../utils/userUtils";
+import User from "../../entities/Users";
 
 interface Props {
   messages: Message[];
   currentUser: string | undefined;
   setNewMessage: (message: string) => void;
+  selectedUser: User | undefined;
 }
 
-const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
+const Chat = ({
+  messages,
+  currentUser,
+  setNewMessage,
+  selectedUser,
+}: Props) => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,13 +33,10 @@ const Chat = ({ messages, currentUser, setNewMessage }: Props) => {
     }
   }, [messages]);
 
-  //figure out a way to dispaly the other user name if there are no message, should not be that hard you dumass
-  const otherUser = getOtherUserFromConversation(messages, currentUser!);
-
   return (
     <>
       <ChatContainer>
-        <ChatTitle>{otherUser}</ChatTitle>
+        <ChatTitle>{selectedUser?.name}</ChatTitle>
         {messages.map((msg, index) => (
           <MessageWrapper key={index}>
             <MessageContainer $isCurrentUser={msg.sender === currentUser}>

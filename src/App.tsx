@@ -47,6 +47,7 @@ function App() {
             messages={messages}
             currentUser={currentUserName}
             setNewMessage={setNewMessage}
+            selectedUser={selectedUser}
           />
         ) : (
           <WelcomeStatement>
