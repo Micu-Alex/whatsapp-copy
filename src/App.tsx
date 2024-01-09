@@ -17,7 +17,7 @@ import {
 function App() {
   const [usersData, setUsersData] = useState<User[]>([]);
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-  const [selectedUserID, setSelectedUserID] = useState<string>();
+  const [selectedUser, setSelectedUser] = useState<User>();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMeassage, setNewMessage] = useState<string>();
 
@@ -29,7 +29,7 @@ function App() {
     <AppContainer>
       <SocketClient
         setUsersData={setUsersData}
-        selectedUserID={selectedUserID}
+        selectedUser={selectedUser}
         setMessages={setMessages}
         newMessage={newMeassage}
         setOnlineUsers={setOnlineUsers}
@@ -37,12 +37,12 @@ function App() {
       <Sidebar>
         <UsersList
           users={usersData}
-          setSelectedUserID={setSelectedUserID}
-          selectedUserID={selectedUserID}
+          setSelectedUser={setSelectedUser}
+          selectedUser={selectedUser}
         />
       </Sidebar>
       <MainContent>
-        {selectedUserID ? (
+        {selectedUser ? (
           <Chat
             messages={messages}
             currentUser={currentUserName}

@@ -6,7 +6,7 @@ import Message from "../entities/Messages";
 interface Props {
   setUsersData: (users: User[]) => void;
   setOnlineUsers: (users: User[]) => void;
-  selectedUserID: string | undefined;
+  selectedUser: User | undefined;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   newMessage: string | undefined;
 }
@@ -14,7 +14,7 @@ interface Props {
 const SocketClient = ({
   setUsersData,
   setOnlineUsers,
-  selectedUserID,
+  selectedUser,
   setMessages,
   newMessage,
 }: Props) => {
@@ -81,11 +81,11 @@ const SocketClient = ({
 
   // deals with selected user event
   useEffect(() => {
-    if (selectedUserID) {
+    if (selectedUser) {
       setMessages([]);
-      socketRef.current.emit("selectedUser", selectedUserID);
+      socketRef.current.emit("selectedUser", selectedUser.userID);
     }
-  }, [selectedUserID, setMessages]);
+  }, [selectedUser, setMessages]);
 
   //deals with old messages
   useEffect(() => {
@@ -104,7 +104,7 @@ const SocketClient = ({
     if (newMessage && newMessage.trim() !== "") {
       socketRef.current.emit("chat message", {
         msg: newMessage,
-        toUserID: selectedUserID,
+        toUserID: selectedUser?.userID,
       });
     }
   }, [newMessage]);

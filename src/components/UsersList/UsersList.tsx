@@ -4,14 +4,14 @@ import { getCurrentUser } from "../../utils/userUtils";
 
 interface Props {
   users: User[];
-  setSelectedUserID: (userID: string) => void;
-  selectedUserID: string | undefined;
+  setSelectedUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  selectedUser: User | undefined;
 }
 
-const UsersList = ({ users, setSelectedUserID, selectedUserID }: Props) => {
+const UsersList = ({ users, setSelectedUser, selectedUser }: Props) => {
   const currentUserName = getCurrentUser(users);
-  const handleUserClick = (userID: string) => {
-    setSelectedUserID(userID);
+  const handleUserClick = (user: User) => {
+    setSelectedUser(user);
   };
 
   return (
@@ -23,8 +23,8 @@ const UsersList = ({ users, setSelectedUserID, selectedUserID }: Props) => {
           .map((user) => (
             <UserItem
               key={user.userID}
-              onClick={() => handleUserClick(user.userID)}
-              $isSelected={selectedUserID === user.userID}
+              onClick={() => handleUserClick(user)}
+              $isSelected={selectedUser?.userID === user.userID}
             >
               <Dot color={user.status === "online" ? "green" : "grey"} />
               Name: {user.name}
