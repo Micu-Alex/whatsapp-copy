@@ -36,7 +36,7 @@ const SocketClient = ({
       transports: ["websocket"],
     });
     socketRef.current = socket;
-
+    // Clean up
     return () => {
       socket.disconnect();
     };
@@ -47,12 +47,18 @@ const SocketClient = ({
     socketRef.current.on("userOnline", (onlineUsers: User[]) => {
       setOnlineUsers(onlineUsers);
     });
-  });
+    return () => {
+      // Clean up the 'users online' event listener
+      if (socketRef.current) {
+        socketRef.current.off("userOnline");
+      }
+    };
+  }, [setOnlineUsers]);
 
   //deals with the "users" event
   useEffect(() => {
     if (socketRef.current) {
-      // Listen for 'users' event from the server
+      // Listen for 'all users' event from the server
       socketRef.current.on("AllUsers", (users: User[], senderID: any) => {
         const updatedUsers = users.map((user) => ({
           ...user,
@@ -97,6 +103,13 @@ const SocketClient = ({
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
+
+    return () => {
+      // Clean up the 'chat message' event listener
+      if (socketRef.current) {
+        socketRef.current.off("chat message");
+      }
+    };
   }, [setMessages]);
 
   //deals with new messages
